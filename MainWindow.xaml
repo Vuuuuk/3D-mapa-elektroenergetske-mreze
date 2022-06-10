@@ -1,0 +1,187 @@
+﻿<!-- PZ2_Radunovic_Vuk PR-158/2018 -->
+
+<!-- EES - 3D Grafikon -->
+
+<Window x:Class="PZ2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PZ2"
+        mc:Ignorable="d"
+        Title="PZ2_Radunovic_Vuk" Height="800" Width="800"
+        Background="#424242"
+        WindowStyle="None" 
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+
+        <!-- BUTTON EFFECT -->
+
+        <Style x:Key="btn_efekat" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="btn_okvir" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style> 
+
+        <!-- BUTTON EFFECT -->
+
+    </Window.Resources>
+
+    <Grid Name="MainGrid" Height="800" Width="800">
+
+        <Button x:Name="btn_exit" 
+                Style="{StaticResource btn_efekat}"
+                Width="42" Height="42" Margin="754,4,4,754" 
+                Background="Transparent"
+                Click="btn_exit_Click">
+            <Image Source="Assets\Menu\btn_menu_exit.png"/>
+        </Button>
+
+        <Button x:Name="btn_hide" 
+                Style="{StaticResource btn_efekat}"
+                Width="42" Height="42" 
+                Background="Transparent"
+                Click="btn_hide_Click" Margin="702,6,56,752">
+            <Image Source="Assets\Menu\btn_menu_hide.png"/>
+        </Button>
+
+        <Button x:Name="btn_show" 
+                Style="{StaticResource btn_efekat}"
+                Width="42" Height="42" 
+                Background="Transparent"
+                Click="btn_show_Click" Margin="649,3,109,755">
+            <Image Source="Assets\Menu\btn_menu_show.png"/>
+        </Button>
+
+        <Button x:Name="btn_color_pipe" 
+                Style="{StaticResource btn_efekat}"
+                Width="42" Height="42" 
+                Background="Transparent"
+                Click="btn_color_pipe_Click" Margin="3,4,755,754">
+            <Image Source="Assets\Menu\btn_menu_color_pipe.png"/>
+        </Button>
+
+        <Button x:Name="btn_color_switch" 
+                Style="{StaticResource btn_efekat}"
+                Width="42" Height="42" 
+                Background="Transparent"
+                Click="btn_color_switch_Click" Margin="59,4,699,754">
+            <Image Source="Assets\Menu\btn_menu_color_switch.png"/>
+        </Button>
+
+        <!-- 3D DISPLAY -->
+
+        <Viewport3D ClipToBounds="True" 
+                    Name="MainViewPort"
+                    MouseWheel="MainViewPort_MouseWheel"
+                    MouseLeftButtonDown="MainViewPort_MouseLeftButtonDown"
+                    MouseLeftButtonUp="MainViewPort_MouseLeftButtonUp"
+                    MouseRightButtonDown="MainViewPort_MouseRightButtonDown"
+                    MouseMove="MainViewPort_MouseMove" Margin="0,70,0,0">
+
+            <!-- 3D PERSPECTIVE CAMERA -->
+
+            <Viewport3D.Camera>
+                <PerspectiveCamera x:Name="mainCamera" Position = "1 -650 850" LookDirection = "0,3.5,-5" FieldOfView = "60" />
+            </Viewport3D.Camera>
+
+            <!-- 3D PERSPECTIVE CAMERA -->
+
+            <!-- 3D ADDITIONAL SCENE ELEMENTS -->
+
+            <Viewport3D.Children>
+
+                <ModelVisual3D x:Name="mainLightSource">
+
+                    <!-- AMBIENTAL LIGHTING -->
+
+                    <ModelVisual3D.Content>
+                        <AmbientLight x:Name = "dirLightMain"/>
+                    </ModelVisual3D.Content>
+
+                    <!-- AMBIENTAL LIGHTING -->
+
+                </ModelVisual3D>
+
+                <ModelVisual3D>
+
+                    <ModelVisual3D.Content>
+                        <Model3DGroup x:Name="model3dGroup">
+                            <GeometryModel3D >
+
+                                <!-- MAP -->
+
+                                <GeometryModel3D.Geometry>
+                                    <MeshGeometry3D Positions = "-587.5,-387.5,0    -587.5,387.5,0    587.5,-387.5,0    587.5,387.5,0" 
+                                                TriangleIndices = "0,2,1 1,2,3"  
+                                                TextureCoordinates="0,1 0,0 1,1 1,0" />
+                                </GeometryModel3D.Geometry>
+
+                                <!-- MAP -->
+
+                                <!-- DRAWING THE MAP -->
+
+                                <GeometryModel3D.Material>
+                                    <DiffuseMaterial>
+                                        <DiffuseMaterial.Brush>
+                                            <ImageBrush ImageSource="Assets\Maps\map_primary.jpg" />
+                                        </DiffuseMaterial.Brush>
+                                    </DiffuseMaterial>
+                                </GeometryModel3D.Material>
+
+                                <!-- DRAWING THE MAP -->
+
+                            </GeometryModel3D>
+                        </Model3DGroup>
+                    </ModelVisual3D.Content>
+
+                    <!-- MAP TRANSFORMATIONS -->
+
+                    <ModelVisual3D.Transform>
+                        <Transform3DGroup>
+                            <ScaleTransform3D x:Name="scale" ScaleX="1" ScaleY="1" ScaleZ="1" CenterX="1" CenterY="0" CenterZ="1"/>
+                            <RotateTransform3D CenterX="1" CenterZ="1" CenterY="0">
+                                <RotateTransform3D.Rotation>
+                                    <AxisAngleRotation3D x:Name = "rotateX"   Axis = "1 0 0"/>
+                                </RotateTransform3D.Rotation>
+                            </RotateTransform3D>
+                            <RotateTransform3D CenterX="1" CenterZ="1" CenterY="1">
+                                <RotateTransform3D.Rotation>
+                                    <AxisAngleRotation3D x:Name = "rotateY" Axis = "0 1 0"/>
+                                </RotateTransform3D.Rotation>
+                            </RotateTransform3D>
+                            <TranslateTransform3D x:Name="translate" OffsetX="0" OffsetY="0" OffsetZ="0"/>
+                        </Transform3DGroup>
+                    </ModelVisual3D.Transform>
+
+                    <!-- MAP TRANSFORMATIONS -->
+
+                </ModelVisual3D>
+
+            </Viewport3D.Children>
+
+            <!-- 3D ADDITIONAL SCENE ELEMENTS -->
+
+        </Viewport3D>
+
+        <!-- 3D DISPLAY -->
+
+    </Grid>
+
+</Window>
+
+<!-- EES - 3D Grafikon -->

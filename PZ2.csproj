@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Maps\map_primary.jpg" />
+    <None Remove="Assets\Menu\btn_menu_color_pipe.png" />
+    <None Remove="Assets\Menu\btn_menu_color_switch.png" />
+    <None Remove="Assets\Menu\btn_menu_exit.png" />
+    <None Remove="Assets\Menu\btn_menu_hide.png" />
+    <None Remove="Assets\Menu\btn_menu_show.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Maps\map_primary.jpg" />
+    <Resource Include="Assets\Menu\btn_menu_color_pipe.png" />
+    <Resource Include="Assets\Menu\btn_menu_color_switch.png" />
+    <Resource Include="Assets\Menu\btn_menu_exit.png" />
+    <Resource Include="Assets\Menu\btn_menu_hide.png" />
+    <Resource Include="Assets\Menu\btn_menu_show.png" />
+  </ItemGroup>
+
+</Project>
